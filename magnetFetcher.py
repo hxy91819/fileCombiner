@@ -22,13 +22,16 @@ headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
            }
 
 response = requests.get(url, headers)
-# print(response)
-# print(response.text)
+if response.status_code != 200:
+    print('response error, get', response)
 
+# 页面的中文编码为gbk，设置中文编码
 response.encoding = 'gbk'
 text = response.text
 
+# 使用BS进行解析，避免写正则表达式匹配
 soup = BeautifulSoup(text, 'lxml')
+# 最后还是用古老的遍历思路，获取magnet开头的数据
 for link in soup.find_all('a'):
     href = link.get('href')
     if not href.startswith('magnet'):
