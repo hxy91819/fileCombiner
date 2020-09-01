@@ -17,7 +17,7 @@ for fileName in fileNames:
     # 如果目录是目标目录，则退出（不重复复制）
     if fileName == resultPathName:
         continue
-
+    # 返回目录
     resultPath = os.path.join(path, resultPathName)
     # 如果不存在目录，则创建
     if not Path(resultPath).exists():
