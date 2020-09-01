@@ -2,26 +2,35 @@
 # 抓取一个页面中所有的磁力链接
 # 只能针对不同的页面来抓取
 
+# 使用requests发起http请求，使用BeautifulSoup解析页面
 
-import os
-import shutil
-from pathlib import Path
+import requests
+from bs4 import BeautifulSoup
 
-path = '\\\\NAS4F66FF\\tvshows'  # 待读取文件的文件夹绝对地址
-files = os.listdir(path)  # 获得文件夹中所有文件的名称列表
-resultPathName = 'Nothing.But.Thirty'
+url = 'https://www.dygod.net/html/tv/hytv/20200623/113340.html'
+# url = 'http://www.baidu.com'
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                         'Chrome/84.0.4147.135 Safari/537.36',
+           # 'Referer': 'http://www.btbtdy2.com/btdy/dy26958.html',
+           # 'Host': 'www.btbtdy2.com',
+           # 'X-Request-With': 'XMLHttpRequest',
+           # 'Cookie': 'Hm_lvt_99249fb41a838398a3cc1c3ad2258fe7=1598793718; '
+           #           'Hm_lpvt_99249fb41a838398a3cc1c3ad2258fe7=1598884657; PHPSESSID=2rghe3g77hbo6nmrn4a690ld31; '
+           #           'Hm_lvt_99249fb41a838398a3cc1c3ad2258fe7=1598793718; bdshare_firstime=1598884861699; '
+           #           'Hm_lpvt_99249fb41a838398a3cc1c3ad2258fe7=1598970208 ',
+           # 'Accept': '*/*'
+           }
 
-for file in files:
-    if not file.startswith(resultPathName):
+response = requests.get(url, headers)
+# print(response)
+# print(response.text)
+
+response.encoding = 'gbk'
+text = response.text
+
+soup = BeautifulSoup(text, 'lxml')
+for link in soup.find_all('a'):
+    href = link.get('href')
+    if not href.startswith('magnet'):
         continue
-    print(file)
-    resultPath = os.path.join(path, resultPathName)
-    # 如果不存在目录，则创建
-    if not Path(resultPath).exists():
-        os.mkdir(resultPath)
-    # 移动目录中文件到resultPath
-    dirFileList = os.listdir(os.path.join(path, file))
-    for dirFile in dirFileList:
-        srcPath = os.path.join(path, file, dirFile)
-        desPath = os.path.join(path, resultPathName, dirFile)
-        shutil.move(srcPath, desPath)
+    print(href)
