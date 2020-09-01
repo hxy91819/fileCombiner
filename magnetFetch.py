@@ -1,7 +1,6 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# 磁力链抓取
+# 抓取一个页面中所有的磁力链接
+# 只能针对不同的页面来抓取
 
 
 import os

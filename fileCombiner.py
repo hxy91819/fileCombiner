@@ -1,8 +1,6 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+# 文件合并器
+# 国内的BT资源下载很多都是分不同集的，导致一个电视剧在很多目录里面，现在可以通过这个脚本合并所有代码到一个目录中
+# 如果操作nas中的文件，注意需要获取相应目录的读写权限
 
 import os
 import shutil
@@ -34,5 +32,6 @@ for fileName in fileNames:
     print(fileName + ' has moved!')
     # 清理目录
     dirFileList = os.listdir(filePath)
+    # 重新获取目录中的文件列表，如果为空，才进行清理
     if len(dirFileList) == 0:
         os.removedirs(filePath)
