@@ -3,6 +3,8 @@
 # 只能针对不同的页面来抓取
 
 # 使用requests发起http请求，使用BeautifulSoup解析页面
+# pip install beautifulsoup4
+# pip install lxml
 
 import requests
 from bs4 import BeautifulSoup
