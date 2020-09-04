@@ -8,7 +8,7 @@ from pathlib import Path
 
 path = '\\\\10.18.50.220\\tvshows'  # 待读取文件的文件夹绝对地址
 fileNames = os.listdir(path)  # 获得文件夹中所有文件的名称列表
-resultPathName = 'Nothing.But.Thirty'
+resultPathName = input("请输入目标目录名：\n")
 
 for fileName in fileNames:
     # 如果不是以目标目录名开头，则退出
